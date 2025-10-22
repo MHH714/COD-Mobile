@@ -1,0 +1,489 @@
+@font-face {
+    font-family: 'Fredoka';
+    font-style: normal;
+    font-weight: 600;
+    font-display: block;
+    src: url(../fonts/Fredoka_Condensed-SemiBold.ttf)
+}
+
+@keyframes zoom-in-zoom-out {
+    0% {
+        scale: 100%;
+    }
+    50% {
+        scale: 80%;
+    }
+    100% {
+        scale: 100%;
+    }
+}
+
+#n2i-html, #n2i-html * {
+    margin:0;
+    padding:0;
+}
+
+#n2i-html, #n2i-html > body {
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    display: block !important;
+    touch-action: none;
+}
+
+#n2i-html > body {
+    background-color: black;
+}
+
+.n2i-absolute {
+    display:block;
+    position: absolute;
+}
+
+.n2i-centered {
+    display:block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.n2i-portrait {
+    width: 100vw;
+    height: 177.78vw;
+    max-height: 100vh;
+    max-width: 56.25vh;
+}
+
+.n2i-landscape {
+    width: 100vw;
+    height: 56.25vw;
+    max-height: 100vh;
+    max-width: 177.78vh;
+}
+
+.n2i-hidden {
+    display: none !important;
+}
+
+.n2i-hidden2 {
+    display: none !important;
+}
+
+.n2i-hidden-fadeout {
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+#n2i > canvas {
+    outline: none; /* disables focus border line */
+}
+
+#n2i-player {
+    z-index: -10;
+}
+
+#n2i-player > video {
+    width: 100%;
+}
+
+#n2i-statusBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: +2;
+    font-family: monospace;
+    padding: 4px 6px;
+    opacity: 0.8;
+}
+
+#n2i-console {
+    z-index: 98;
+    font-weight: bold;
+    text-align: right;
+    background-color: transparent;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+#n2i-console > span {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#n2i-muted {
+    z-index: 20;
+    width: 10%;
+    position: absolute;
+    opacity: 50%;
+}
+
+@keyframes blinker {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.n2i-blink {
+    animation: blinker 2s ease-in-out infinite;
+}
+
+.n2i-dark-transparent {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#n2i-network-quality {
+    z-index: 20;
+    width: 8%;
+    right: 0;
+    position: absolute;
+    margin: 1em;
+    transition: opacity 2s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.n2i-network-quality-img {
+    width: 100%;
+    height: 100%;
+    max-height:100%;
+    max-width:100%;
+    object-fit: contain;
+}
+
+#n2i-rotator {
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: url(../images/rotator.png), black;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+
+@keyframes n2i-spinner {
+  to {transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+#n2i-spinner > div:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    border-top-color: #d00;
+    animation: n2i-spinner .6s linear infinite;
+    transform: translate(-50%, -50%) rotate(0deg); /* start state */
+    max-width: 100px;
+    max-height: 100px;
+
+}
+
+#n2i-spinner.n2i-splash-visible > div:before {
+    top: 80%;
+}
+
+#n2i-spinner {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: +5;
+}
+
+#n2i-spinner.n2i-splash-visible {
+    background-color: transparent !important;
+}
+
+#n2i-splash {
+    z-index: +4;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-color: transparent;
+}
+
+.n2i-blue-border > div:before {
+    border-top-color: #07d !important;
+}
+
+.n2i-green-border > div:before {
+    border-top-color: #0a1 !important;
+}
+
+.n2i-grayed {
+    opacity: 0.3;
+}
+
+#n2i-message, #n2i-reload, #n2i-toast {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Fredoka, sans-serif;
+}
+
+#n2i-message, #n2i-toast {
+    width: 80%;
+    z-index: 16;
+    padding: 0 10% 0 10%;
+}
+
+#n2i-message {
+    top: 5%;
+    font-size: 2em;
+}
+
+/* error */
+#n2i-message.n2i-message-5 {
+    text-shadow: 3px 3px #cf0d0d;
+}
+
+/* user message */
+#n2i-message.n2i-message-10 {
+    text-shadow: 3px 3px #3641b9;
+}
+
+#n2i-reload {
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    backdrop-filter: blur(4px);
+}
+
+#n2i-reload-button {
+    width: 70%;
+    font-size: 10vw;
+    line-height: 1em;
+    box-shadow: 5px 5px black;
+    text-shadow: 5px 5px black;
+    animation: zoom-in-zoom-out 1s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+    cursor: pointer;
+    border: 6px solid white;
+    border-radius: 10vw;
+    padding: 0.2em;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#n2i-toast {
+    bottom: 5%;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#n2i-a2hs {
+    z-index: 20;
+}
+
+.n2i-movable {
+    position: absolute;
+    cursor: move;
+}
+
+#n2i-menu {
+    z-index: 100;
+    position: absolute;
+    width: 3em;
+    max-height: 3em;
+    background-color: white;
+    opacity: 50%;
+    left: 2em;
+    top: 2em;
+    transition: max-height .3s;
+    overflow: hidden;
+    border-radius: 0.3em;
+}
+
+#n2i-menu .n2i-menu-button {
+    width: 2em;
+    height: 2em;
+    margin: 0.5em;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+/* icons from https://remixicon.com/collection */
+#n2i-menu-button-toggle {
+    background-image: url(../images/menu-unfold-line.png);
+}
+#n2i-menu-button-toggle.alt {
+    background-image: url(../images/menu-fold-line.png);
+}
+
+#n2i-menu-button-audio {
+    background-image: url(../images/volume-mute-fill.png);
+}
+#n2i-menu-button-audio.alt {
+    background-image: url(../images/volume-up-fill.png);
+}
+
+#n2i-menu-button-fullscreen {
+    background-image: url(../images/fullscreen-line.png);
+}
+#n2i-menu-button-fullscreen.alt {
+    background-image: url(../images/fullscreen-exit-line.png);
+}
+#n2i-menu-button-back {
+    background-image: url(../images/back.png);
+}
+
+@keyframes zoom {
+    30% {
+        scale: 1;
+    }
+    50% {
+        scale: 0.7;
+    }
+    70% {
+        scale: 1;
+    }
+}
+
+#n2i-pointer {
+    position: absolute;
+    z-index: +5;
+    pointer-events: none;
+}
+
+#n2i-pointer-hole {
+    position: absolute;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+    border-radius: 1em;
+}
+
+#n2i-pointer-hole > div > img {
+    animation: zoom 1s ease-in-out infinite;
+    width: 70%;
+    height: auto;
+    margin-top: 30%;
+    margin-left: 21%;
+}
+
+#n2i-countdown {
+    z-index: 90;
+    position: absolute;
+    top: 2vw;
+    right: 2vw;
+}
+
+#n2i-countdown > svg {
+    width: 100%;
+    height: 100%;
+}
+
+#n2i-countdown > svg > circle {
+    fill: none;
+    stroke-opacity: 0.3;
+    transform-origin: center center;
+    transform: rotate(-90deg);
+}
+
+#n2i-countdown > svg > circle + circle {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    stroke-linecap: round;
+    stroke-opacity: 1;
+    transition: stroke-dashoffset 1s linear;
+}
+
+#n2i-countdown.n2i-hidden > svg > circle + circle {
+    transition: none;
+}
+
+#n2i-countdown > svg > text {
+    font-family: sans-serif;
+}
+
+#n2i-cta {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 70;
+}
+
+#n2i-infos {
+    z-index: 99;
+    width: fit-content;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    /* user-select: none; */
+    max-width: 90%;
+    max-height: 50%;
+    overflow: auto;
+}
+
+#n2i-infos > div {
+    border: 1px solid black;
+    display: inline-block;
+    background: #fffe;
+    padding: 2px;
+}
+
+#n2i-infos details:not(:first-of-type) {
+    border-top: 1px solid black;
+}
+
+#n2i-infos summary {
+    cursor: pointer;
+}
+
+#n2i-infos pre {
+    margin: 0;
+}
+
+#n2i-infos button {
+    margin: 2px;
+}
+#n2i-infos input[type=number] {
+    width: 3em;
+}
+
+#n2i-infos li {
+    list-style-position: inside;
+    text-wrap: nowrap;
+    padding-left: 1ch;
+}
+
+#n2i-infos li span:first-of-type {
+    font-weight: bold;
+}
+
+#n2i-footer {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+}
+
+#n2i-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 30;
+}
+
+#n2i-iframe-header {
+    width: 100%;
+    z-index: 30;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    cursor: pointer;
+}
